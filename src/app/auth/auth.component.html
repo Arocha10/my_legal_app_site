@@ -1,0 +1,85 @@
+<div class="auth-page">
+  <div class="container page">
+    <div class="row">
+
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">{{ title }}</h1>
+        <p class="text-xs-center">
+          <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
+          <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
+        </p>
+        <app-list-errors [errors]="errors"></app-list-errors>
+        <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+          <fieldset [disabled]="isSubmitting">
+            <fieldset class="form-group">
+              <input
+                formControlName="email"
+                placeholder="Email"
+                class="form-control form-control-lg"
+                type="text" />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="password"
+                placeholder="Password"
+                class="form-control form-control-lg"
+                type="password" />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="first_name"
+                placeholder="First Name"
+                class="form-control form-control-lg"
+                type="text"
+                *ngIf="authType == 'register'" />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="last_name"
+                placeholder="Last Name"
+                class="form-control form-control-lg"
+                type="text"
+                *ngIf="authType == 'register'" />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="mobile_phone"
+                placeholder="Mobile phone"
+                class="form-control form-control-lg"
+                type="text"
+                *ngIf="authType == 'register'" />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="address"
+                placeholder="Address"
+                class="form-control form-control-lg"
+                type="text"
+                *ngIf="authType == 'register'" />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="law_firm"
+                placeholder="Law Firm"
+                class="form-control form-control-lg"
+                type="text"
+                *ngIf="authType == 'register'" />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="birth_day"
+                placeholder="2018-01-01"
+                class="form-control form-control-lg"
+                type="date"
+                *ngIf="authType == 'register'" />
+            </fieldset>
+            <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
+              {{ title }}
+            </button>
+          </fieldset>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
