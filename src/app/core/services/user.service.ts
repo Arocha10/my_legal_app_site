@@ -39,19 +39,15 @@ export class UserService {
   }
 
   setAuth(data: any) {
+
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(data.token);
+
     // Set current user data into observable
     this.isAuthenticatedSubject.next(true);
-    return this.apiService.get( '/lawyer')
-      .pipe(map(
-      res => {
-        console.log("HOOOLA");
-        console.log(res);
-        this.currentUserSubject.next(res);
-        // Set isAuthenticated to true
-      }
-    ));
+
+    // Set isAuthenticated to true
+    this.currentUserSubject.next(data.identity);
 
   }
 
@@ -69,8 +65,9 @@ export class UserService {
     return this.apiService.post( route, credentials)
       .pipe(map(
       res => {
+        console.log(res);
         if (res.success == false) {
-           throw Observable.throw(res);  
+           throw Observable.throw(res);
          }
         console.log(res);
         this.setAuth(res.data);
@@ -83,6 +80,10 @@ export class UserService {
     return this.currentUserSubject.value;
   }
 
+  getToken(): any {
+    return this.jwtService.getToken();
+  }
+
   // Update the user on the server (email, pass, etc)
   update(user): Observable<User> {
     return this.apiService
@@ -93,5 +94,23 @@ export class UserService {
       return data.user;
     }));
   }
+
+  inviteUser(type, credentials): any {
+    const route = (type === 'invitation') ? '/lawyer/createuser' : '/lawyer/invitation';
+    console.log(credentials);
+    return this.apiService.post( route, credentials)
+      .pipe(map(
+      res => {
+        console.log(res);
+        if (res.success == false) {
+           throw Observable.throw(res);
+         }
+        console.log(res);
+        this.setAuth(res.data);
+        return res;
+      }
+    ));
+  }
+
 
 }

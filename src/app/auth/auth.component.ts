@@ -15,6 +15,7 @@ export class AuthComponent implements OnInit {
   isSubmitting = false;
   authForm: FormGroup;
 
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -34,6 +35,7 @@ export class AuthComponent implements OnInit {
       'birth_day': [''],
       'type':['lawyer']
     });
+
   }
 
   ngOnInit() {
