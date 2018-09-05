@@ -14,19 +14,115 @@
         <div class="feed-toggle">
           <ul class="nav nav-pills outline-active">
             <li class="nav-item">
-              <a class="nav-link">
-                 Your Feed
+              <a class="nav-link"
+                 [ngClass]="{'active': listConfig === 'invitation'}"
+                 (click)="setListTo('invitation')">
+                 Invite client
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">
-                 Global Feed
+              <a class="nav-link"
+                 [ngClass]="{'active': listConfig != 'invitation'}"
+                 (click)="setListTo('create')">
+                 Add client
               </a>
             </li>
 
           </ul>
         </div>
+        <div
+          [hidden]="this.createF">
+          <h1 class="text-xs-center">Invite a user</h1>
+          <p class="text-xs-center">
+            <a > Create the new client account</a><br>
+            <a [routerLink]="['/login']" >The client already have a account?</a>
+          </p>
+        <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+          <fieldset [disabled]="isSubmitting">
+            <fieldset class="form-group">
+              <input
+                formControlName="email"
+                placeholder="Email"
+                class="form-control form-control-lg"
+                type="text" />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="first_name"
+                placeholder="First Name"
+                class="form-control form-control-lg"
+                type="text"
+               />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="last_name"
+                placeholder="Last Name"
+                class="form-control form-control-lg"
+                type="text"
+               />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="mobile_phone"
+                placeholder="Mobile phone"
+                class="form-control form-control-lg"
+                type="text"
+               />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="home_phone"
+                placeholder="Home phone"
+                class="form-control form-control-lg"
+                type="text"
+               />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="address"
+                placeholder="Address"
+                class="form-control form-control-lg"
+                type="text"
+               />
+            </fieldset>
 
+            <fieldset class="form-group">
+              <input
+                formControlName="birth_day"
+                placeholder="2018-01-01"
+                class="form-control form-control-lg"
+                type="date"
+               />
+            </fieldset>
+            <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
+              {{ title }}
+            </button>
+          </fieldset>
+        </form>
+      </div>
+      <div
+        [hidden]="!this.createF">
+        <h1 class="text-xs-center">Send invitation</h1>
+        <p class="text-xs-center">
+          <a > Ask to a possible client to add you as lawyer</a>
+        </p>
+      <form [formGroup]="codeForm" (ngSubmit)="submitForm()">
+        <fieldset [disabled]="isSubmitting">
+          <fieldset class="form-group">
+            <input
+              formControlName="email"
+              placeholder="Email"
+              class="form-control form-control-lg"
+              type="text" />
+          </fieldset>
+
+          <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!codeForm.valid" type="submit">
+            Send request
+          </button>
+        </fieldset>
+      </form>
+    </div>
       </div>
 
     </div>
